@@ -1,0 +1,23 @@
+apply from: "../../java.gradle"
+apply plugin: "org.springframework.boot"
+group = "org.superbiz"
+version = "1.1.0-SNAPSHOT"
+description = "OpenEJB :: Web Examples :: AlbumsService"
+
+dependencies {
+    compile project(":components:albums")
+    compile project(":components:cf-support")
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "mysql:mysql-connector-java:$mysqlVersion"
+
+    testCompile "junit:junit:$junitVersion"
+}
+bootRun.environment([
+        "MINIO_ACCESS_KEY":"U6TSHTYTJKIGM180T8TE",
+        "MINIO_SECRET_ACCESS_KEY":"cBbCnpVi9bwg6Wywb1YADhQxlgSlffYQyGCtZj3a",
+        "S3_ENDPOINTURL":"http://127.0.0.1:9000",
+        "VCAP_SERVICES":"{\"user-provided\": [{\"credentials\": {\"access_key_id\": \"U6TSHTYTJKIGM180T8TE\", \"bucket\": \"moviefun\", \"secret_access_key\": \"cBbCnpVi9bwg6Wywb1YADhQxlgSlffYQyGCtZj3a\", \"endpoint\": \"http://127.0.0.1:9000\"}, \"name\": \"photo-storage\"}]}",
+        "MOVIES_URL": "http://localhost:8082/movies",
+        "ALBUMS_URL": "http://localhost:8083/albums",
+])
